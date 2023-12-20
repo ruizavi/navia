@@ -1,5 +1,5 @@
 import { metadata } from "reflect-metadata/no-conflict";
-import { Metadata, MetadataKeys } from "..";
+import { DomainOptions, Metadata, MetadataKeys } from "..";
 import { Type } from "../common/interfaces/type.interface";
 
 export class Quetzal {
@@ -18,6 +18,11 @@ export class Quetzal {
   }
 
   public start() {
-    console.log(this.metadata.get(MetadataKeys.DOMAIN, this.Root));
+    const options: DomainOptions = this.metadata.get(MetadataKeys.DOMAIN, this.Root);
+    console.log(options);
+
+    for (const controller of options.controllers) {
+      console.log(this.metadata.get(MetadataKeys.CONTROLLER, controller));
+    }
   }
 }
