@@ -3,9 +3,10 @@
   "module": "src/index.ts",
   "type": "module",
   "scripts": {
+    "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
     "build:bun": "bun build.ts",
-    "build": "bun build:esm && bun build:bun",
+    "build": "bun build:esm && bun build:bun && bun build:cjs",
     "format": "bunx @biomejs/biome format src --write",
     "lint": "bunx @biomejs/biome lint src",
     "lint:format": "bunx @biomejs/biome check --apply src",
