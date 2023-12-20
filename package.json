@@ -5,13 +5,21 @@
   "scripts": {
     "format": "bunx @biomejs/biome format src --write",
     "lint": "bunx @biomejs/biome lint src",
-    "lint:format": "bunx @biomejs/biome check --apply src"
+    "lint:format": "bunx @biomejs/biome check --apply src",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@biomejs/biome": "1.4.1",
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "husky": "^8.0.0",
+    "lint-staged": "15.2.0"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "lint-staged": {
+    "*.ts?(x)": [
+      "bunx @biomejs/biome check --apply src"
+    ]
   }
 }
