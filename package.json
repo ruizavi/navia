@@ -2,7 +2,13 @@
   "name": "quetzal",
   "module": "src/main.ts",
   "type": "module",
+  "scripts": {
+    "format": "bunx @biomejs/biome format src --write",
+    "lint": "bunx @biomejs/biome lint src",
+    "lint:format": "bunx @biomejs/biome check --apply src"
+  },
   "devDependencies": {
+    "@biomejs/biome": "1.4.1",
     "bun-types": "latest"
   },
   "peerDependencies": {
