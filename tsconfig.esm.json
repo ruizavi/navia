@@ -4,6 +4,8 @@
     "lib": ["ESNext", "DOM", "ScriptHost"],
     "module": "ES2022",
     "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "baseUrl": "./src",
     "types": ["bun-types"],
     "declaration": true,

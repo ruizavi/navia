@@ -7,7 +7,8 @@
   "jsc": {
     "target": "es2022",
     "parser": {
-      "syntax": "typescript"
+      "syntax": "typescript",
+      "decorators": true
     },
     "minify": {
       "mangle": true,
