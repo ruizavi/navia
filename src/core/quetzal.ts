@@ -24,11 +24,12 @@ export class Quetzal {
   }
 
   public start(port: number) {
+    this.app.use(express.json());
+
     const domainResolver = new DomainResolver(this.domain, Quetzal.quetzal);
 
     domainResolver.resolve();
 
-    this.app.use(express.json());
     this.app.listen(port, () => {
       console.log("activo");
     });
