@@ -4,6 +4,7 @@ import { DomainResolver } from "./domain-resolver";
 
 export class Quetzal {
   private static quetzal: Quetzal;
+
   private declare domain: Type<any>;
   private declare app: Application;
 
