@@ -8,7 +8,7 @@ export class Test {
   }
 
   @Post("")
-  post(@Body() body: any) {
+  post(@Body() body: unknown) {
     return body;
   }
 
