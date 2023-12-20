@@ -6,7 +6,4 @@ export enum RouteParamtypes {
   QUERY = 4,
   PARAM = 5,
   HEADERS = 6,
-  FILE = 7,
-  FILES = 8,
-  USER = 9,
 }

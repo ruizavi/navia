@@ -29,6 +29,3 @@ export const Param = createRouteParamDecorator(RouteParamtypes.PARAM);
 export const Query = createRouteParamDecorator(RouteParamtypes.QUERY);
 export const Headers = createRouteParamDecorator(RouteParamtypes.HEADERS);
 export const Body = createRouteParamDecorator(RouteParamtypes.BODY);
-export const User = createRouteParamDecorator(RouteParamtypes.USER);
-export const File = createRouteParamDecorator(RouteParamtypes.FILE);
-export const Files = createRouteParamDecorator(RouteParamtypes.FILES);
