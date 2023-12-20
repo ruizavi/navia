@@ -1,14 +1,16 @@
-import { Controller, Delete, Get, Post, Put } from "../src";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "../src";
 
 @Controller("test")
 export class Test {
-  @Get("")
-  test() {
-    return { status: "ok!" };
+  @Get(":id")
+  test(@Param("id") id: string) {
+    return { status: "ok!", id };
   }
 
   @Post("")
-  post() {}
+  post(@Body() body: any) {
+    return body;
+  }
 
   @Put("")
   put() {}
