@@ -3,7 +3,9 @@ import { Controller, Delete, Get, Post, Put } from "../src";
 @Controller("test")
 export class Test {
   @Get("")
-  test() {}
+  test() {
+    return { status: "ok!" };
+  }
 
   @Post("")
   post() {}
