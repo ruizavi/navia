@@ -7,9 +7,9 @@ export class Test {
     return { status: "ok!", id };
   }
 
-  @Post("")
-  post(@Body() body: unknown) {
-    return body;
+  @Post(":id")
+  post(@Body() body: unknown, @Param("id") id: string) {
+    return { body, id };
   }
 
   @Put("")

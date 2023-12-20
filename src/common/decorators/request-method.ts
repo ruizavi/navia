@@ -8,17 +8,22 @@ function requestMethodFactory(method: RequestMethod) {
 
     const metadata = Metadata.init();
     return (target, propertyKey, descriptor) => {
-      const routes: RouteDefinition[] = metadata.has(MetadataKeys.ROUTES, target.constructor)
+      const args: RouteDefinition = metadata.has(MetadataKeys.ROUTES, target.constructor)
         ? metadata.get(MetadataKeys.ROUTES, target.constructor)
-        : [];
+        : {};
 
-      routes.push({
-        handler: { descriptor: descriptor.value, name: propertyKey },
-        method,
-        path,
-      });
-
-      metadata.set(MetadataKeys.ROUTES, routes, target.constructor);
+      metadata.set(
+        MetadataKeys.ROUTES,
+        {
+          ...args,
+          [propertyKey]: {
+            path,
+            descriptor: descriptor.value,
+            method,
+          },
+        },
+        target.constructor,
+      );
     };
   };
 }

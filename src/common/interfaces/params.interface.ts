@@ -1,8 +1,11 @@
-import { RouteParamtypes } from "..";
+import { RouteParamtypes, Type } from "..";
+import { ParserTransform } from "./parser";
 
 export interface ParamsDefinition {
-  type: RouteParamtypes;
-  position: number;
-  data: string | object | any;
-  parser?: any;
+  [key: string]: {
+    type: RouteParamtypes;
+    position: number;
+    data: string | object | any;
+    parser?: (Type<ParserTransform> | ParserTransform)[];
+  };
 }

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Metadata, MetadataKeys, Type } from "..";
 import { ParamsDefinition } from "../common/interfaces/params.interface";
-import { Handler, RouteDefinition } from "../common/interfaces/route.interface";
+import { RouteDefinition } from "../common/interfaces/route.interface";
 import { RouteParamsFactory } from "./route-param-resolver";
 
 export class RouteResolver {
@@ -9,40 +9,29 @@ export class RouteResolver {
   private metadata = Metadata.init();
 
   resolve(target: Type<any>, router: Router) {
-    const routes: RouteDefinition[] = this.metadata.get(MetadataKeys.ROUTES, target);
+    const routes: RouteDefinition = this.metadata.get(MetadataKeys.ROUTES, target);
 
     const instance = new target();
 
-    for (const { handler, method, path } of routes) {
-      const buildedHandler = this.buildHandler(handler, target);
+    for (const [key, { descriptor, method, path }] of Object.entries(routes)) {
+      const builded = this.buildHandler(descriptor, key, target);
 
-      router[method](path, buildedHandler.bind(instance));
+      router[method](path, builded.bind(instance));
     }
   }
 
-  private buildHandler(handler: Handler, target: Type<any>) {
-    const params: ParamsDefinition[] = this.metadata.get(MetadataKeys.PARAMS, target, handler.name);
+  private buildHandler(descriptor: any, key: string | symbol, target: Type<any>) {
+    const params: ParamsDefinition = this.metadata.get(MetadataKeys.PARAMS, target, key);
 
     return async (req: Request, res: Response, next: NextFunction) => {
-      const args: unknown[] = params
-        .sort((a, b) => a.position - b.position)
-        .map(({ type, data, parser }) =>
-          parser
-            ? parser(
-                this.paramsFactory.changekeyForValue(type, data, {
-                  req,
-                  res,
-                  next,
-                }),
-              )
-            : this.paramsFactory.changekeyForValue(type, data, {
-                req,
-                res,
-                next,
-              }),
-        );
+      const args: unknown[] = [];
+
+      for (const { data, type } of Object.values(params)) {
+        args.push(this.paramsFactory.changekeyForValue(type, data, { req, res, next }));
+      }
+
       try {
-        const returnValue = await handler.descriptor.apply(this, args);
+        const returnValue = await descriptor.apply(this, args);
 
         res.json(returnValue);
       } catch (error) {
