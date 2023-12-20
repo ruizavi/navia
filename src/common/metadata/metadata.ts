@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { isObject } from "../utils/is.util";
+import { isFunction, isObject } from "../utils/is.util";
 
 class Metadata {
   private static instance: Metadata;
@@ -15,15 +15,15 @@ class Metadata {
   }
 
   public get(key: unknown, target: unknown) {
-    if (isObject(target)) return Reflect.getMetadata(key, target);
+    if (isFunction(target)) return Reflect.getMetadata(key, target);
   }
 
   public set(key: unknown, value: unknown, target: unknown) {
-    if (isObject(target)) return Reflect.defineMetadata(key, value, target);
+    if (isFunction(target)) return Reflect.defineMetadata(key, value, target);
   }
 
   public has(key: unknown, target: unknown) {
-    if (isObject(target)) return Reflect.hasMetadata(key, target);
+    if (isFunction(target)) return Reflect.hasMetadata(key, target);
   }
 }
 
