@@ -1,14 +1,15 @@
-import { metadata } from "reflect-metadata/no-conflict";
-import { DomainOptions, Metadata, MetadataKeys } from "..";
+import express, { Application } from "express";
 import { Type } from "../common/interfaces/type.interface";
+import { DomainResolver } from "./domain-resolver";
 
 export class Quetzal {
   private static quetzal: Quetzal;
-  private metadata = Metadata.init();
-  private declare Root: Type<any>;
+  private declare domain: Type<any>;
+  private declare app: Application;
 
   private constructor(root: Type<any>) {
-    this.Root = root;
+    this.domain = root;
+    this.app = express();
   }
 
   static create(root: Type<any>) {
@@ -17,14 +18,18 @@ export class Quetzal {
     return Quetzal.quetzal;
   }
 
-  public start() {
-    const options: DomainOptions = this.metadata.get(MetadataKeys.DOMAIN, this.Root);
-    console.log(options);
+  public getApp() {
+    return this.app;
+  }
 
-    for (const controller of options.controllers) {
-      console.log(this.metadata.get(MetadataKeys.CONTROLLER, controller));
+  public start(port: number) {
+    const domainResolver = new DomainResolver(this.domain, Quetzal.quetzal);
 
-      console.log(this.metadata.get(MetadataKeys.ROUTES, controller));
-    }
+    domainResolver.resolve();
+
+    this.app.use(express.json());
+    this.app.listen(port, () => {
+      console.log("activo");
+    });
   }
 }
