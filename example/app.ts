@@ -1,4 +1,5 @@
 import { Domain } from "../src";
+import { Test } from "./controller";
 
-@Domain({ controllers: [] })
+@Domain({ controllers: [Test] })
 export class Root {}
