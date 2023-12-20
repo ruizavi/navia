@@ -1,25 +1,36 @@
-import { Metadata, MetadataKeys, RouteParamtypes } from "..";
+import { Metadata, MetadataKeys, RouteParamtypes, Type } from "..";
 import { ParamsDefinition } from "../interfaces/params.interface";
+import { ParserTransform } from "../interfaces/parser";
 
 function createRouteParamDecorator(type: RouteParamtypes) {
   return (data?: string): ParameterDecorator =>
     (target, propertyKey, index) => {
       const metadata = Metadata.init();
 
-      const params: ParamsDefinition[] = metadata.has(MetadataKeys.PARAMS, target.constructor)
-        ? metadata.get(MetadataKeys.PARAMS, target.constructor)
+      const params: ParamsDefinition[] = metadata.has(
+        MetadataKeys.PARAMS,
+        target.constructor,
+        propertyKey,
+      )
+        ? metadata.get(MetadataKeys.PARAMS, target.constructor, propertyKey)
         : [];
 
-      if (propertyKey)
-        params.push({
-          data,
-          handler: propertyKey,
-          position: index,
-          type,
-        });
+      params.push({
+        data,
+        position: index,
+        type,
+      });
 
-      metadata.set(MetadataKeys.PARAMS, params, target.constructor);
+      metadata.set(MetadataKeys.PARAMS, params, target.constructor, propertyKey);
     };
+}
+
+function createParsersRouteParamDecorator(type: RouteParamtypes) {
+  return (
+      data?: string,
+      ...parsers: (Type<ParserTransform> | ParserTransform)[]
+    ): ParameterDecorator =>
+    (target, key, index) => {};
 }
 
 export const Req = createRouteParamDecorator(RouteParamtypes.REQUEST);

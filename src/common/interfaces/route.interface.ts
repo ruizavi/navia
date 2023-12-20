@@ -1,10 +1,12 @@
 import { RequestMethod } from "../enums";
 
+export interface Handler {
+  name: string | symbol;
+  descriptor: any;
+}
+
 export interface RouteDefinition {
   path: string;
-  handler: {
-    name: string | symbol;
-    descriptor: any;
-  };
+  handler: Handler;
   method: RequestMethod;
 }

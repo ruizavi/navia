@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Metadata, MetadataKeys, Type } from "..";
 import { ParamsDefinition } from "../common/interfaces/params.interface";
-import { RouteDefinition } from "../common/interfaces/route.interface";
+import { Handler, RouteDefinition } from "../common/interfaces/route.interface";
 import { RouteParamsFactory } from "./route-param-resolver";
 
 export class RouteResolver {
@@ -20,12 +20,11 @@ export class RouteResolver {
     }
   }
 
-  private buildHandler(handler: any, target: Type<any>) {
-    const params: ParamsDefinition[] = this.metadata.get(MetadataKeys.PARAMS, target);
+  private buildHandler(handler: Handler, target: Type<any>) {
+    const params: ParamsDefinition[] = this.metadata.get(MetadataKeys.PARAMS, target, handler.name);
 
     return async (req: Request, res: Response, next: NextFunction) => {
       const args: unknown[] = params
-        .filter((p) => p.handler === handler.name)
         .sort((a, b) => a.position - b.position)
         .map(({ type, data, parser }) =>
           parser

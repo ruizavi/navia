@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { isFunction, isObject } from "../utils/is.util";
+import { isFunction, isObject, isUndefined } from "../utils/is.util";
 
 class Metadata {
   private static instance: Metadata;
@@ -14,16 +14,28 @@ class Metadata {
     return Metadata.instance;
   }
 
-  public get(key: unknown, target: unknown) {
-    if (isFunction(target)) return Reflect.getMetadata(key, target);
+  public get(metadataKey: unknown, target: unknown, key?: symbol | string) {
+    return isFunction(target)
+      ? isUndefined(key)
+        ? Reflect.getMetadata(metadataKey, target)
+        : Reflect.getMetadata(metadataKey, target, key)
+      : null;
   }
 
-  public set(key: unknown, value: unknown, target: unknown) {
-    if (isFunction(target)) return Reflect.defineMetadata(key, value, target);
+  public set(metadataKey: unknown, metadataValue: unknown, target: unknown, key?: string | symbol) {
+    return isFunction(target)
+      ? isUndefined(key)
+        ? Reflect.defineMetadata(metadataKey, metadataValue, target)
+        : Reflect.defineMetadata(metadataKey, metadataValue, target, key)
+      : null;
   }
 
-  public has(key: unknown, target: unknown) {
-    if (isFunction(target)) return Reflect.hasMetadata(key, target);
+  public has(metadataKey: unknown, target: unknown, key?: symbol | string) {
+    return isFunction(target)
+      ? isUndefined(key)
+        ? Reflect.hasMetadata(metadataKey, target)
+        : Reflect.hasMetadata(metadataKey, target, key)
+      : false;
   }
 }
 
