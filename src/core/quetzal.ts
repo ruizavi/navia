@@ -23,6 +23,8 @@ export class Quetzal {
 
     for (const controller of options.controllers) {
       console.log(this.metadata.get(MetadataKeys.CONTROLLER, controller));
+
+      console.log(this.metadata.get(MetadataKeys.ROUTES, controller));
     }
   }
 }
