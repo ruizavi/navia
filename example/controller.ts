@@ -1,9 +1,23 @@
-import { Body, Controller, Delete, Get, IntParser, Param, Post, Put } from "../src";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  IntParser,
+  OnAfter,
+  OnBefore,
+  Param,
+  Post,
+  Put,
+} from "../src";
 import { BoolParser } from "../src/common/parsers/bool-parser";
+import { After, Before } from "./lifecycle";
 
 @Controller("test")
 export class Test {
   @Get(":bool")
+  @OnBefore(Before, Before)
+  @OnAfter(After, After)
   test(@Param("bool", new BoolParser()) id: string) {
     return { status: "ok!", id };
   }
