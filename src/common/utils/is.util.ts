@@ -10,3 +10,5 @@ export const addSlash = (path?: string): string =>
   path && typeof path === "string" ? (path.charAt(0) !== "/" ? `/${path}` : path) : "";
 
 export const isString = (val: any): val is string => typeof val === "string";
+
+export const isBool = (val: any): val is boolean => typeof val === "boolean";

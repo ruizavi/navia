@@ -1,9 +1,10 @@
 import { Body, Controller, Delete, Get, IntParser, Param, Post, Put } from "../src";
+import { BoolParser } from "../src/common/parsers/bool-parser";
 
 @Controller("test")
 export class Test {
-  @Get(":id")
-  test(@Param("id") id: string) {
+  @Get(":bool")
+  test(@Param("bool", new BoolParser()) id: string) {
     return { status: "ok!", id };
   }
 
