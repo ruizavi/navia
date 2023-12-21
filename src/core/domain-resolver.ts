@@ -1,4 +1,4 @@
-import { DomainOptions, Metadata, MetadataKeys, Quetzal, Type } from "..";
+import { DomainOptions, Metadata, MetadataKeys, Parrot, Type } from "..";
 import { RouterResolver } from "./router-resolver";
 
 export class DomainResolver {
@@ -6,7 +6,7 @@ export class DomainResolver {
   private declare domain: Type<any>;
   private declare routerResolver: RouterResolver;
 
-  constructor(domain: Type<any>, application: Quetzal) {
+  constructor(domain: Type<any>, application: Parrot) {
     this.domain = domain;
     this.routerResolver = new RouterResolver(application);
   }

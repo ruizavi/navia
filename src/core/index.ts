@@ -1,1 +1,1 @@
-export { Quetzal } from "./quetzal";
+export { Parrot } from "./parrot";

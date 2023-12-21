@@ -1,13 +1,13 @@
-# Quetzal
+# Parrot
 
 
 ## Installation
 To install the library
 
 ```bash
-bun add quetzal
+bun add parrot
 # or in a Node environment
-npm install quetzal
+npm install parrot
 ```
 
 ## Getting Started
@@ -35,11 +35,11 @@ Finally, the application requires two things to work: a main class that acts as 
 
 ```typescript
 // src/main.ts
-import { Quetzal } from "quetzal";
+import { Parrot } from "parrot";
 import { Root } from "./root";
 
 function main() {
-  const app = Quetzal.create(Root);
+  const app = Parrot.create(Root);
 
   app.start(process.env.PORT || 3000);
 }
@@ -49,7 +49,7 @@ main();
 
 ```typescript
 // src/root.ts
-import { Domain } from "quetzal"
+import { Domain } from "parrot"
 
 @Domain({ controllers: [] })
 export class Root {}
@@ -72,7 +72,7 @@ export class Todo {
 
 ```typescript
 // src/root.ts
-import { Domain } from "quetzal"
+import { Domain } from "parrot"
 import { Todo } from "./controller/todo"
 
 @Domain({ controllers: [Todo] })
@@ -88,7 +88,7 @@ These decorators take a string as a parameter, which is the method's path. For e
 
 ```typescript
 // src/controllers/todo.ts
-import { Controller, Get, Delete } from "quetzal"
+import { Controller, Get, Delete } from "parrot"
 
 @Controller('todo')
 export class Todo {
@@ -117,7 +117,7 @@ For example, in the `Todo` controller, the `remove` method needs to access the v
 
 ```typescript
 // src/controllers/todo.ts
-import { Controller, Get, Delete, Param } from "quetzal"
+import { Controller, Get, Delete, Param } from "parrot"
 
 @Controller('todo')
 export class Todo {
@@ -140,7 +140,7 @@ To apply a parser, you just need to add an extra parameter to the property decor
 
 ```typescript
 // src/controllers/todo.ts
-import { Controller, Get, Delete, Param, IntParser } from "quetzal"
+import { Controller, Get, Delete, Param, IntParser } from "parrot"
 
 @Controller('todo')
 export class Todo {
@@ -170,7 +170,7 @@ All three decorators can be applied at the class or method level. Examples of th
 
 ```typescript
 // src/lifecycle/handlers.ts
-import { Context, ErrorContext, ErrorHandling, LifeCycle } from "quetzal";
+import { Context, ErrorContext, ErrorHandling, LifeCycle } from "parrot";
 
 // Context provides access to Express's Request, Response, and NextFunction
 export class After implements LifeCycle {
@@ -202,7 +202,7 @@ To apply them in the controller, you do it as follows:
 
 ```typescript
 // src/controllers/todo.ts
-import { Controller, Get, Delete, Param, IntParser, OnError } from "quetzal"
+import { Controller, Get, Delete, Param, IntParser, OnError } from "parrot"
 import { ErrorHandler, Before } from "../lifecycle/handlers"
 
 @Controller('todo')

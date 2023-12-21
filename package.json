@@ -1,5 +1,5 @@
 {
-  "name": "quetzal",
+  "name": "parrot",
   "description": "Backend Framework based on Express",
   "version": "1.0.0",
   "author": {
@@ -24,10 +24,10 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ruizavi/quetzal.git"
+    "url": "git+https://github.com/ruizavi/parrot.git"
   },
-  "bugs": "https://github.com/ruizavi/quetzal/issues",
-  "homepage": "https://github.com/ruizavi/quetzal",
+  "bugs": "https://github.com/ruizavi/parrot/issues",
+  "homepage": "https://github.com/ruizavi/parrot",
   "keywords": [
     "bun",
     "http",

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { IsNull, LifeCycleType, Quetzal, Type, isUndefined } from "..";
+import { IsNull, LifeCycleType, Parrot, Type } from "..";
 import { ControllerResolver } from "./controller-resolver";
 import { LifeCycleResolver } from "./lifecycle-resolver";
 import { RouteResolver } from "./route-resolver";
@@ -8,9 +8,9 @@ export class RouterResolver {
   private controllerResolver = new ControllerResolver();
   private routeResolver = new RouteResolver();
   private lifecycleResolver = new LifeCycleResolver();
-  private declare application: Quetzal;
+  private declare application: Parrot;
 
-  constructor(application: Quetzal) {
+  constructor(application: Parrot) {
     this.application = application;
   }
 

@@ -2,8 +2,8 @@ import express, { Application } from "express";
 import { Type } from "../common";
 import { DomainResolver } from "./domain-resolver";
 
-export class Quetzal {
-  private static quetzal: Quetzal;
+export class Parrot {
+  private static parrot: Parrot;
 
   private declare domain: Type<any>;
   private declare app: Application;
@@ -14,9 +14,9 @@ export class Quetzal {
   }
 
   static create(root: Type<any>) {
-    if (!Quetzal.quetzal) Quetzal.quetzal = new Quetzal(root);
+    if (!Parrot.parrot) Parrot.parrot = new Parrot(root);
 
-    return Quetzal.quetzal;
+    return Parrot.parrot;
   }
 
   public getApp() {
@@ -26,7 +26,7 @@ export class Quetzal {
   public start(port: number) {
     this.app.use(express.json());
 
-    const domainResolver = new DomainResolver(this.domain, Quetzal.quetzal);
+    const domainResolver = new DomainResolver(this.domain, Parrot.parrot);
 
     domainResolver.resolve();
 
