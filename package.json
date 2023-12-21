@@ -1,5 +1,5 @@
 {
-  "name": "parrot",
+  "name": "navia",
   "description": "Backend Framework based on Express",
   "version": "1.0.0",
   "author": {
@@ -24,10 +24,10 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ruizavi/parrot.git"
+    "url": "git+https://github.com/ruizavi/navia.git"
   },
-  "bugs": "https://github.com/ruizavi/parrot/issues",
-  "homepage": "https://github.com/ruizavi/parrot",
+  "bugs": "https://github.com/ruizavi/navia/issues",
+  "homepage": "https://github.com/ruizavi/navia",
   "keywords": [
     "bun",
     "http",
@@ -39,11 +39,11 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "bun run build",
+    "prepublishOnly": "npm run build",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
     "build:bun": "bun build.ts",
-    "build": "bun build:esm && bun build:bun && bun build:cjs",
+    "build": "bun run build:esm && bun run build:bun && bun run build:cjs",
     "format": "bunx @biomejs/biome format src --write",
     "lint": "bunx @biomejs/biome lint src",
     "lint:format": "bunx @biomejs/biome check --apply src",

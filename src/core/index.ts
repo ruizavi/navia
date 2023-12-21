@@ -1,1 +1,1 @@
-export { Parrot } from "./parrot";
+export { Navia } from "./navia";

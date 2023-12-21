@@ -2,8 +2,8 @@ import express, { Application } from "express";
 import { Type } from "../common";
 import { DomainResolver } from "./domain-resolver";
 
-export class Parrot {
-  private static parrot: Parrot;
+export class Navia {
+  private static navia: Navia;
 
   private declare domain: Type<any>;
   private declare app: Application;
@@ -14,9 +14,9 @@ export class Parrot {
   }
 
   static create(root: Type<any>) {
-    if (!Parrot.parrot) Parrot.parrot = new Parrot(root);
+    if (!Navia.navia) Navia.navia = new Navia(root);
 
-    return Parrot.parrot;
+    return Navia.navia;
   }
 
   public getApp() {
@@ -26,7 +26,7 @@ export class Parrot {
   public start(port: number) {
     this.app.use(express.json());
 
-    const domainResolver = new DomainResolver(this.domain, Parrot.parrot);
+    const domainResolver = new DomainResolver(this.domain, Navia.navia);
 
     domainResolver.resolve();
 

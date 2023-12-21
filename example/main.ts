@@ -1,8 +1,8 @@
-import { Parrot } from "../src";
+import { Navia } from "../src";
 import { Root } from "./app";
 
 function main() {
-  const app = Parrot.create(Root);
+  const app = Navia.create(Root);
 
   app.start(300);
 }
