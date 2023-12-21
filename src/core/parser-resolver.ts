@@ -5,7 +5,7 @@ export class ParserResolver {
     return parsers.reduce(async (deferred, parser) => {
       const parsed = await deferred;
 
-      const result = parser.parse(parsed);
+      const result = parser.transform(parsed);
 
       return result;
     }, Promise.resolve(value));

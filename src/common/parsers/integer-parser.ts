@@ -9,7 +9,7 @@ export interface IntParseOptions {
 export class IntParser implements ParserTransform<string> {
   constructor(protected readonly options: IntParseOptions = {}) {}
 
-  async parse(value: string): Promise<number> {
+  async transform(value: string): Promise<number> {
     if (IsNull(value) && this.options?.optional) {
       return value;
     }

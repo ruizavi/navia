@@ -9,7 +9,7 @@ export interface BoolParseOptions {
 export class BoolParser implements ParserTransform<boolean | string, Promise<boolean>> {
   constructor(protected readonly options: BoolParseOptions = {}) {}
 
-  async parse(value: string | boolean): Promise<boolean> {
+  async transform(value: string | boolean): Promise<boolean> {
     if (IsNull(value) && this.options.optional) return value;
 
     if (value === "true" || value === true) return true;
