@@ -24,7 +24,7 @@
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ruizavi/navia.git"
+    "url": "https://github.com/ruizavi/navia"
   },
   "bugs": "https://github.com/ruizavi/navia/issues",
   "homepage": "https://github.com/ruizavi/navia",

@@ -12,10 +12,7 @@ export class DomainResolver {
   }
 
   public resolve() {
-    const options: DomainOptions = this.metadata.get(
-      MetadataKeys.DOMAIN,
-      this.domain
-    );
+    const options: DomainOptions = this.metadata.get(MetadataKeys.DOMAIN, this.domain);
 
     for (const controller of options.controllers) {
       this.routerResolver.resolve(controller);
