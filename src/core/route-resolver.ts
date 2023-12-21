@@ -26,7 +26,7 @@ export class RouteResolver {
     return async (req: Request, res: Response, next: NextFunction) => {
       const args: unknown[] = [];
 
-      for (const { data, type } of Object.values(params)) {
+      for (const { data, type } of Object.values(params).reverse()) {
         args.push(this.paramsFactory.changekeyForValue(type, data, { req, res, next }));
       }
 

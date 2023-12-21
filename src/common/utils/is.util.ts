@@ -8,3 +8,5 @@ export const isFunction = (val: any): val is Function => typeof val === "functio
 
 export const addSlash = (path?: string): string =>
   path && typeof path === "string" ? (path.charAt(0) !== "/" ? `/${path}` : path) : "";
+
+export const isString = (val: any): val is string => typeof val === "string";

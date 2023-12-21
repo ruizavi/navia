@@ -1,5 +1,5 @@
 import { RouteParamtypes, Type } from "..";
-import { ParserTransform } from "./parser";
+import { ParserTransform } from "./parser.interface";
 
 export interface ParamsDefinition {
   [key: string]: {
