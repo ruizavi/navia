@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { LifeCycleType, Quetzal, Type } from "..";
+import { IsNull, LifeCycleType, Quetzal, Type, isUndefined } from "..";
 import { ControllerResolver } from "./controller-resolver";
 import { LifeCycleResolver } from "./lifecycle-resolver";
 import { RouteResolver } from "./route-resolver";
@@ -27,8 +27,11 @@ export class RouterResolver {
 
     const before = this.lifecycleResolver.resolve(LifeCycleType.BEFORE, target);
     const after = this.lifecycleResolver.resolve(LifeCycleType.AFTER, target);
+    const error = this.lifecycleResolver.resolveError(target);
 
     app.use(base, ...before, router, ...after);
+
+    if (!IsNull(error)) router.use(error);
   }
 
   private generateRouter(target: Type<any>) {

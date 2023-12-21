@@ -1,4 +1,5 @@
 export enum LifeCycleType {
-  BEFORE = 0,
-  AFTER = 1,
+  BEFORE = "before",
+  AFTER = "after",
+  ERROR = "error",
 }

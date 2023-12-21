@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Metadata, MetadataKeys, Type, isUndefined } from "..";
-import { LifeCycleType, ParamsDefinition, RouteDefinition } from "../common";
+import { IsNull, LifeCycleType, ParamsDefinition, RouteDefinition } from "../common";
 import {} from "../common";
 import { LifeCycleResolver } from "./lifecycle-resolver";
 import { ParserResolver } from "./parser-resolver";
@@ -20,10 +20,13 @@ export class RouteResolver {
     for (const [key, { descriptor, method, path }] of Object.entries(routes)) {
       const before = this.lifecycleResolver.resolve(LifeCycleType.BEFORE, target, key);
       const after = this.lifecycleResolver.resolve(LifeCycleType.AFTER, target, key);
+      const error = this.lifecycleResolver.resolveError(target, key);
 
       const builded = this.buildHandler(descriptor, key, target);
 
       router[method](path, ...before, builded.bind(instance), ...after);
+
+      if (!IsNull(error)) router.use(error);
     }
   }
 

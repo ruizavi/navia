@@ -1,5 +1,5 @@
 import { LifeCycleType, Metadata, Type, isFunction, validateEach } from "..";
-import { LifeCycle } from "../interfaces/lifecycle.interface";
+import { ErrorHandling, LifeCycle } from "../interfaces/lifecycle.interface";
 
 export function lifeCycleFactory(type: LifeCycleType) {
   return (...handlers: (Type<LifeCycle> | LifeCycle)[]): MethodDecorator & ClassDecorator =>
@@ -31,3 +31,26 @@ export function lifeCycleFactory(type: LifeCycleType) {
 
 export const OnBefore = lifeCycleFactory(LifeCycleType.BEFORE);
 export const OnAfter = lifeCycleFactory(LifeCycleType.AFTER);
+
+export function OnError(
+  handler: Type<ErrorHandling> | ErrorHandling,
+): MethodDecorator & ClassDecorator {
+  return (target: any, key?: string | symbol, descriptor?: TypedPropertyDescriptor<any>) => {
+    const metadata = Metadata.init();
+
+    const isValidHandler = <T extends Function | Record<string, any>>(handler: T) =>
+      handler && (isFunction(handler) || isFunction((handler as Record<string, any>).handling));
+
+    if (!isValidHandler(handler)) throw new Error();
+
+    if (descriptor) {
+      metadata.set(LifeCycleType.ERROR, handler, target.constructor, key);
+
+      return descriptor;
+    }
+
+    metadata.set(LifeCycleType.ERROR, handler, target);
+
+    return target;
+  };
+}
