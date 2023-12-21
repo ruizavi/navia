@@ -39,6 +39,7 @@
   ],
   "license": "MIT",
   "scripts": {
+    "prepublishOnly": "bun run build",
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
     "build:bun": "bun build.ts",
