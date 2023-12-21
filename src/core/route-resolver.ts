@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Metadata, MetadataKeys, Type, isUndefined } from "..";
-import { ParamsDefinition, RouteDefinition } from "../common";
+import { LifeCycleType, ParamsDefinition, RouteDefinition } from "../common";
 import {} from "../common";
+import { LifeCycleResolver } from "./lifecycle-resolver";
 import { ParserResolver } from "./parser-resolver";
 import { RouteParamsFactory } from "./route-param-resolver";
 
 export class RouteResolver {
   private paramsFactory = new RouteParamsFactory();
   private parserResolver = new ParserResolver();
+  private lifecycleResolver = new LifeCycleResolver();
   private metadata = Metadata.init();
 
   resolve(target: Type<any>, router: Router) {
@@ -16,9 +18,12 @@ export class RouteResolver {
     const instance = new target();
 
     for (const [key, { descriptor, method, path }] of Object.entries(routes)) {
+      const before = this.lifecycleResolver.resolve(LifeCycleType.BEFORE, target, key);
+      const after = this.lifecycleResolver.resolve(LifeCycleType.AFTER, target, key);
+
       const builded = this.buildHandler(descriptor, key, target);
 
-      router[method](path, builded.bind(instance));
+      router[method](path, ...before, builded.bind(instance), ...after);
     }
   }
 
@@ -26,22 +31,24 @@ export class RouteResolver {
     const params: ParamsDefinition = this.metadata.get(MetadataKeys.PARAMS, target, key);
 
     return async (req: Request, res: Response, next: NextFunction) => {
-      const args: unknown[] = [];
-
-      for (const { data, type, parser } of Object.values(params).reverse()) {
-        const value = this.paramsFactory.changekeyForValue(type, data, {
-          req,
-          res,
-          next,
-        });
-
-        args.push(isUndefined(parser) ? value : await this.parserResolver.resolve(parser, value));
-      }
-
       try {
+        const args: unknown[] = [];
+
+        for (const { data, type, parser } of Object.values(params).reverse()) {
+          const value = this.paramsFactory.changekeyForValue(type, data, {
+            req,
+            res,
+            next,
+          });
+
+          args.push(isUndefined(parser) ? value : await this.parserResolver.resolve(parser, value));
+        }
+
         const returnValue = await descriptor.apply(this, args);
 
         res.json(returnValue);
+
+        next();
       } catch (error) {
         next(error);
       }

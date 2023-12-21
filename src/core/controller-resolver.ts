@@ -1,4 +1,5 @@
-import { Metadata, MetadataKeys, Type } from "..";
+import { NextFunction, Request, Response } from "express";
+import { LifeCycle, LifeCycleType, Metadata, MetadataKeys, Type } from "..";
 
 export class ControllerResolver {
   private metadata = Metadata.init();

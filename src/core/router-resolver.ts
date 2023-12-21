@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { Quetzal, Type } from "..";
+import { LifeCycleType, Quetzal, Type } from "..";
 import { ControllerResolver } from "./controller-resolver";
+import { LifeCycleResolver } from "./lifecycle-resolver";
 import { RouteResolver } from "./route-resolver";
 
 export class RouterResolver {
   private controllerResolver = new ControllerResolver();
   private routeResolver = new RouteResolver();
+  private lifecycleResolver = new LifeCycleResolver();
   private declare application: Quetzal;
 
   constructor(application: Quetzal) {
@@ -23,7 +25,10 @@ export class RouterResolver {
 
     const app = this.application.getApp();
 
-    app.use(base, router);
+    const before = this.lifecycleResolver.resolve(LifeCycleType.BEFORE, target);
+    const after = this.lifecycleResolver.resolve(LifeCycleType.AFTER, target);
+
+    app.use(base, ...before, router, ...after);
   }
 
   private generateRouter(target: Type<any>) {
