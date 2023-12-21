@@ -69,6 +69,10 @@
     "reflect-metadata": "^0.2.1",
     "ts-pattern": "^5.0.6"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "type": "module",
   "lint-staged": {
     "*.ts?(x)": [
