@@ -6,18 +6,21 @@ import {
   IntParser,
   OnAfter,
   OnBefore,
+  OnError,
   Param,
   Post,
   Put,
 } from "../src";
 import { BoolParser } from "../src/common/parsers/bool-parser";
-import { After, Before } from "./lifecycle";
+import { After, Before, ErrorHandler, ErrorHandlerInMethod } from "./lifecycle";
 
 @Controller("test")
+@OnError(ErrorHandler)
 export class Test {
   @Get(":bool")
-  @OnBefore(Before, Before)
-  @OnAfter(After, After)
+  @OnBefore(Before)
+  @OnAfter(After)
+  @OnError(ErrorHandlerInMethod)
   test(@Param("bool", new BoolParser()) id: string) {
     return { status: "ok!", id };
   }
