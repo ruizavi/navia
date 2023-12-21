@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { Metadata, MetadataKeys, Type } from "..";
+import { Metadata, MetadataKeys, Type, isUndefined } from "..";
 import { ParamsDefinition } from "../common/interfaces/params.interface";
 import { RouteDefinition } from "../common/interfaces/route.interface";
+import { ParserResolver } from "./parser-resolver";
 import { RouteParamsFactory } from "./route-param-resolver";
 
 export class RouteResolver {
   private paramsFactory = new RouteParamsFactory();
+  private parserResolver = new ParserResolver();
   private metadata = Metadata.init();
 
   resolve(target: Type<any>, router: Router) {
@@ -26,8 +28,14 @@ export class RouteResolver {
     return async (req: Request, res: Response, next: NextFunction) => {
       const args: unknown[] = [];
 
-      for (const { data, type } of Object.values(params).reverse()) {
-        args.push(this.paramsFactory.changekeyForValue(type, data, { req, res, next }));
+      for (const { data, type, parser } of Object.values(params).reverse()) {
+        const value = this.paramsFactory.changekeyForValue(type, data, {
+          req,
+          res,
+          next,
+        });
+
+        args.push(isUndefined(parser) ? value : await this.parserResolver.resolve(parser, value));
       }
 
       try {

@@ -11,6 +11,7 @@
     "rules": {
       "recommended": true,
       "suspicious": {
+        "noGlobalIsFinite": "off",
         "noExplicitAny": "off"
       },
       "complexity": {

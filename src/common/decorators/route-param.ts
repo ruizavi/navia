@@ -12,7 +12,7 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
   paramtype: TParamtype,
   index: number,
   data?: ParamData,
-  ...pipes: (Type<ParserTransform> | ParserTransform)[]
+  ...parser: (Type<ParserTransform> | ParserTransform)[]
 ) {
   return {
     ...args,
@@ -20,7 +20,7 @@ export function assignMetadata<TParamtype = any, TArgs = any>(
       type: paramtype,
       index,
       data,
-      pipes,
+      parser,
     },
   };
 }

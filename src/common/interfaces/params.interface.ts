@@ -6,6 +6,6 @@ export interface ParamsDefinition {
     type: RouteParamtypes;
     position: number;
     data: string | object | any;
-    parser?: (Type<ParserTransform> | ParserTransform)[];
+    parser?: ParserTransform[];
   };
 }

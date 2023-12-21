@@ -1,5 +1,5 @@
 import { HttpStatus, IsNull } from "..";
-import { ArgumentMetadata, ParserTransform } from "../interfaces/parser.interface";
+import { ParserTransform } from "../interfaces/parser.interface";
 
 export interface IntParseOptions {
   optional?: boolean;
@@ -9,7 +9,7 @@ export interface IntParseOptions {
 export class IntParser implements ParserTransform<string> {
   constructor(protected readonly options: IntParseOptions = {}) {}
 
-  async parse(value: string, metadata: ArgumentMetadata): Promise<number> {
+  async parse(value: string): Promise<number> {
     if (IsNull(value) && this.options?.optional) {
       return value;
     }
@@ -25,9 +25,7 @@ export class IntParser implements ParserTransform<string> {
     const isInt = /^-?\d+$/;
 
     return (
-      ["string", "number"].includes(typeof value) &&
-      isInt.test(value) &&
-      Number.isFinite(value as any)
+      ["string", "number"].includes(typeof value) && isInt.test(value) && isFinite(value as any)
     );
   }
 }
