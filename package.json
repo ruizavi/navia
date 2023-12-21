@@ -1,7 +1,43 @@
 {
   "name": "quetzal",
-  "module": "src/index.ts",
-  "type": "module",
+  "description": "Backend Framework based on Express",
+  "version": "1.0.0",
+  "author": {
+    "name": "Victor Ruiz (ruizavi)",
+    "url": "https://github.com/ruizavi",
+    "email": "avi.ruiz@proton.me"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "bun": "./dist/bun/index.js",
+      "node": "./dist/cjs/index.js",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ruizavi/quetzal.git"
+  },
+  "bugs": "https://github.com/ruizavi/quetzal/issues",
+  "homepage": "https://github.com/ruizavi/quetzal",
+  "keywords": [
+    "bun",
+    "http",
+    "web",
+    "server",
+    "backend",
+    "decorators",
+    "typescrip"
+  ],
+  "license": "MIT",
   "scripts": {
     "build:cjs": "tsc --project tsconfig.cjs.json",
     "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
@@ -26,16 +62,17 @@
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
-  "lint-staged": {
-    "*.ts?(x)": [
-      "bunx @biomejs/biome check --apply src"
-    ]
-  },
   "dependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "express": "^4.18.2",
     "reflect-metadata": "^0.2.1",
     "ts-pattern": "^5.0.6"
+  },
+  "type": "module",
+  "lint-staged": {
+    "*.ts?(x)": [
+      "bunx @biomejs/biome check --apply src"
+    ]
   }
 }

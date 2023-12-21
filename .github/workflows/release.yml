@@ -1,0 +1,36 @@
+name: Release versions
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  avoid_redundance:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Cancel previous builds
+        uses: styfle/cancel-workflow-action@0.6.0
+        with:
+          access_token: ${{ github.token }}
+  deploy:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+      - name: "Install dependencies"
+        run: "bun i"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "20.8.0"
+      - name: "Deploy in npm"
+        run: "npm publish"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NODE_AUTH_TOKEN }}
