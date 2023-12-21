@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "../src";
+import { Body, Controller, Delete, Get, IntParser, Param, Post, Put } from "../src";
 
 @Controller("test")
 export class Test {
@@ -8,7 +8,7 @@ export class Test {
   }
 
   @Post(":id")
-  post(@Body() body: unknown, @Param("id") id: string) {
+  post(@Body() body: unknown, @Param("id", new IntParser()) id: number) {
     return { body, id };
   }
 
