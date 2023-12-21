@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { isFunction, isObject, isUndefined } from "../utils/is.util";
+import { isFunction, isUndefined } from "../utils/is.util";
 
 class Metadata {
   private static instance: Metadata;

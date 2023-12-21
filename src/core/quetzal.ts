@@ -1,5 +1,5 @@
 import express, { Application } from "express";
-import { Type } from "../common/interfaces/type.interface";
+import { Type } from "../common";
 import { DomainResolver } from "./domain-resolver";
 
 export class Quetzal {

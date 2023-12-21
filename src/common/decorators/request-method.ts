@@ -1,6 +1,6 @@
 import { Metadata, addSlash } from "..";
 import { MetadataKeys, RequestMethod } from "../enums";
-import { RouteDefinition } from "../interfaces/route.interface";
+import { RouteDefinition } from "../interfaces";
 
 function requestMethodFactory(method: RequestMethod) {
   return (prefix: string): MethodDecorator => {

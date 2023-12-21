@@ -1,5 +1,5 @@
 import { IsNull, Metadata, MetadataKeys, RouteParamtypes, Type, isString, isUndefined } from "..";
-import { ParserTransform } from "../interfaces/parser.interface";
+import { ParserTransform } from "../interfaces";
 
 export type ParamData = object | string | number;
 export interface RouteParamMetadata {

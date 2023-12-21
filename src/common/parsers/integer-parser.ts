@@ -1,5 +1,5 @@
 import { HttpStatus, IsNull } from "..";
-import { ParserTransform } from "../interfaces/parser.interface";
+import { ParserTransform } from "../interfaces";
 
 export interface IntParseOptions {
   optional?: boolean;

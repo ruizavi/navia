@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Metadata, MetadataKeys, Type, isUndefined } from "..";
-import { ParamsDefinition } from "../common/interfaces/params.interface";
-import { RouteDefinition } from "../common/interfaces/route.interface";
+import { ParamsDefinition, RouteDefinition } from "../common";
+import {} from "../common";
 import { ParserResolver } from "./parser-resolver";
 import { RouteParamsFactory } from "./route-param-resolver";
 

@@ -1,4 +1,4 @@
-import { ParserTransform } from "../common/interfaces/parser.interface";
+import { ParserTransform } from "../common";
 
 export class ParserResolver {
   async resolve(parsers: ParserTransform[], value: unknown) {

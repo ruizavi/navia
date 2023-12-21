@@ -1,6 +1,6 @@
 import { Metadata } from "..";
-import { MetadataKeys } from "../enums/metadata.enum";
-import { Type } from "../interfaces/type.interface";
+import { MetadataKeys } from "../enums";
+import { Type } from "../interfaces";
 
 /**
  * @publicApi
