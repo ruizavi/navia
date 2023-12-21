@@ -1,7 +1,7 @@
 {
   "name": "navia",
   "description": "Backend Framework based on Express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": {
     "name": "Victor Ruiz (ruizavi)",
     "url": "https://github.com/ruizavi",
