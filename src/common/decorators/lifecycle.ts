@@ -1,0 +1,33 @@
+import { LifeCycleType, Metadata, Type, isFunction, validateEach } from "..";
+import { LifeCycle } from "../interfaces/lifecycle.interface";
+
+export function lifeCycleFactory(type: LifeCycleType) {
+  return (...handlers: (Type<LifeCycle> | LifeCycle)[]): MethodDecorator & ClassDecorator =>
+    (target: any, key?: string | symbol, descriptor?: TypedPropertyDescriptor<any>) => {
+      const metadata = Metadata.init();
+
+      const isValidHandler = <T extends Function | Record<string, any>>(handler: T) =>
+        handler && (isFunction(handler) || isFunction((handler as Record<string, any>).use));
+
+      if (descriptor) {
+        const previous = metadata.get(type, target.constructor, key) || [];
+
+        validateEach(target.constructor, handlers, isValidHandler, "@LifeCycle", "handler");
+
+        metadata.set(type, [...previous, ...handlers], target.constructor, key);
+
+        return descriptor;
+      }
+
+      const previous = metadata.get(type, target) || [];
+
+      validateEach(target, handlers, isValidHandler, "@LifeCycle", "handler");
+
+      metadata.set(type, [...previous, ...handlers], target.constructor, key);
+
+      return target;
+    };
+}
+
+export const OnBefore = lifeCycleFactory(LifeCycleType.BEFORE);
+export const OnAfter = lifeCycleFactory(LifeCycleType.AFTER);
