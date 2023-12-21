@@ -37,14 +37,18 @@ export class RouteResolver {
       try {
         const args: unknown[] = [];
 
-        for (const { data, type, parser } of Object.values(params).reverse()) {
-          const value = this.paramsFactory.changekeyForValue(type, data, {
-            req,
-            res,
-            next,
-          });
+        if (!isUndefined(params) || !IsNull(params)) {
+          for (const { data, type, parser } of Object.values(params).reverse()) {
+            const value = this.paramsFactory.changekeyForValue(type, data, {
+              req,
+              res,
+              next,
+            });
 
-          args.push(isUndefined(parser) ? value : await this.parserResolver.resolve(parser, value));
+            args.push(
+              isUndefined(parser) ? value : await this.parserResolver.resolve(parser, value),
+            );
+          }
         }
 
         const returnValue = await descriptor.apply(this, args);

@@ -17,12 +17,12 @@ import { After, Before, ErrorHandler, ErrorHandlerInMethod } from "./lifecycle";
 @Controller("test")
 @OnError(ErrorHandler)
 export class Test {
-  @Get(":bool")
+  @Get("")
   @OnBefore(Before)
   @OnAfter(After)
   @OnError(ErrorHandlerInMethod)
-  test(@Param("bool", new BoolParser()) id: string) {
-    return { status: "ok!", id };
+  test() {
+    return { status: "ok!" };
   }
 
   @Post(":id")
