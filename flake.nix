@@ -15,6 +15,7 @@
         nativeBuildInputs = [pkgs.bashInteractive];
         buildInputs = with pkgs; [
           bun
+          nodejs_21
         ];
       };
     });

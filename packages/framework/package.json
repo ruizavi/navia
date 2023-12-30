@@ -1,0 +1,21 @@
+{
+  "name": "@navia/framework",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "prepublishOnly": "npm run build",
+    "build:cjs": "tsc --project tsconfig.cjs.json",
+    "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
+    "build:bun": "bun run build.ts",
+    "build": "bun run build:esm && bun run build:bun && bun run build:cjs",
+    "format": "bunx @biomejs/biome format src --write",
+    "lint": "bunx @biomejs/biome lint src",
+    "lint:format": "bunx @biomejs/biome check --apply src"
+  }
+}

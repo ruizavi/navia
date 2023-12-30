@@ -2,6 +2,9 @@
   "name": "navia",
   "description": "Backend Framework based on Express",
   "version": "1.0.1",
+  "workspaces": [
+    "packages/*"
+  ],
   "author": {
     "name": "Victor Ruiz (ruizavi)",
     "url": "https://github.com/ruizavi",
@@ -39,11 +42,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "prepublishOnly": "npm run build",
-    "build:cjs": "tsc --project tsconfig.cjs.json",
-    "build:esm": "swc src -d dist && tsc --project tsconfig.esm.json",
-    "build:bun": "bun build.ts",
-    "build": "bun run build:esm && bun run build:bun && bun run build:cjs",
+
     "format": "bunx @biomejs/biome format src --write",
     "lint": "bunx @biomejs/biome lint src",
     "lint:format": "bunx @biomejs/biome check --apply src",
@@ -57,6 +56,7 @@
     "@types/multer": "^1.4.11",
     "bun-types": "latest",
     "husky": "^8.0.0",
+    "lerna": "^8.0.1",
     "lint-staged": "15.2.0",
     "multer": "^1.4.5-lts.1"
   },
